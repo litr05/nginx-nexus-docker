@@ -12,9 +12,9 @@ services:
     command: [ nginx, '-g', 'daemon off;' ]
 
   nexus-repo:
-    image: sonatype/nexus3
+    image: docker.io/sonatype/nexus3:3.41.1
     volumes:
-      - 'nexus3-data:/nexus-data'
+      - '/nexus-data:/nexus-data'
 
 volumes:
   nexus3-data:

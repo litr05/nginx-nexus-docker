@@ -48,7 +48,7 @@ fi
 
 # Generate nexus Cert
 openssl req -subj "/C=US/ST=Random/L=Random/O=Global Security/OU=IT Department/CN=localhost"  -new -sha256 -nodes -out ../certs/nexus.csr -newkey rsa:2048 -keyout ../certs/nexuskey.pem
-openssl x509 -req -passin pass:"$1" -in ../certs/nexus.csr -CA ../certs/rootCA.pem -CAkey ../certs/rootCA.key -CAcreateserial -out ../certs/nexuscert.crt -days 500 -sha256 -extfile <(printf "subjectAltName=DNS:localhost,DNS:nexus-repo")
+openssl x509 -req -passin pass:"$1" -in ../certs/nexus.csr -CA ../certs/rootCA.pem -CAkey ../certs/rootCA.key -CAcreateserial -out ../certs/nexuscert.crt -days 1500 -sha256 -extfile <(printf "subjectAltName=DNS:localhost,DNS:nexus-repo")
 
 cd ../nginx/
 echo $PWD
@@ -58,10 +58,10 @@ cp ../certs/nexuscert.crt nexuscert.crt
 cp ../certs/nexuskey.pem nexuskey.pem
 
 # Docker build nginx image
-docker build --no-cache -t nginx-nexusproxy .
+podman build --no-cache -t nginx-nexusproxy .
 
 cd ../
 echo $PWD
 
 # Run nginx and nexus containers
-docker-compose up -d
+podman-compose up -d

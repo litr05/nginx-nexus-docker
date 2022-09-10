@@ -28,6 +28,6 @@ rm -f nexuscert.crt nexuskey.pem
 
 cd ../
 
-docker-compose down
+podman-compose down
 
-docker rmi nginx-nexusproxy
+podman rmi nginx-nexusproxy
