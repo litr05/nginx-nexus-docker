@@ -1,17 +1,17 @@
 version: '3'
 
 services:
-  nginx-nexusproxy:
-    image: nginx-nexusproxy
+  nginx:
+    image: nginx-nexus
     ports:
       - '443:443'
       - '6666:6666'
       - '7777:7777'
     links:
-      - nexus-repo
+      - nexus
     command: [ nginx, '-g', 'daemon off;' ]
 
-  nexus-repo:
+  nexus:
     image: docker.io/sonatype/nexus3:3.41.1
     volumes:
       - '/nexus-data:/nexus-data'

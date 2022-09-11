@@ -20,16 +20,14 @@
 #these scripts may cause.
 # ....................................................................... #
 
-cd ../certs/
+mkdir -p $HOME/.config/systemd/user
 
-rm -f nexuscert.crt nexuskey.pem nexus.csr rootCA.key rootCA.pem rootCA.srl
+cd $HOME/.config/systemd/user
 
-cd ../nginx/
+podman generate systemd --new --files --name nexus
 
-rm -f nexuscert.crt nexuskey.pem
+systemctl --user daemon-reload
 
-cd ../
+systemctl --user enable pod-nexus.service
 
-podman-compose down
-
-podman rmi nginx-nexus
+sudo reboot
