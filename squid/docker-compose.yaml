@@ -9,4 +9,3 @@ services:
       - ./squid.conf:/etc/squid/squid.conf:ro
       - /var/log/squid:/var/log/squid
       - /srv/docker/squid/cache:/var/spool/squid
-    restart: always
