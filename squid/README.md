@@ -67,7 +67,10 @@ services:
 	 - /srv/docker/squid/cache:/var/spool/squid
     restart: always
 ```
-
+# Проверка squid
+```
+curl -x http://0.0.0.0:3128 -L https://ya.ru
+```
 
 # Если нужно что бы прокси ходил через другой прокси
 
