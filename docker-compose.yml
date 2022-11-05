@@ -1,8 +1,9 @@
-version: '3'
+version: '3.9'
 
 services:
   nginx:
     image: nginx:alpine
+    command: [ nginx, '-g', 'daemon off;' ]
     ports:
      - '443:443'
      - '6666:6666'
@@ -10,13 +11,16 @@ services:
     links:
      - nexus
     volumes:
-     - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-     - ./nginx/ssl:/etc/nginx/ssl:ro
-    command: [ nginx, '-g', 'daemon off;' ]
+     - /root/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+     - /root/nginx/ssl:/etc/nginx/ssl:ro
   nexus:
     image: docker.io/sonatype/nexus3:3.42.0
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 3G
     volumes:
-     - '~/nexus-data:/nexus-data'
-
+     - 'nexus-data:/nexus-data'
 volumes:
-  nexus3-data:
+  nexus-data:
